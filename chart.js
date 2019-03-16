@@ -36,26 +36,26 @@ function drawChart() {
     annotations: {
       textStyle: {
         fontName: 'Crimson Text',
-        fontSize: 15,
+        fontSize: 18,
         bold: true,
         color: '#000000'
       }
     },
     hAxis: {
       textStyle: {
-        fontSize: 15,
+        fontSize: 20,
         fontName: 'Crimson Text'
       }
     },
     vAxis: {
       textStyle: {
-        fontSize: 15,
+        fontSize: 20,
         fontName: 'Crimson Text'
       }
     },
     legend: {
       textStyle: {
-        fontSize: 15,
+        fontSize: 20,
         fontName: 'Crimson Text'
       }
     },
