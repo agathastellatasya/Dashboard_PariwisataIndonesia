@@ -1,0 +1,23 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./js/lineChart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agathastellatasya/TugasBesar1_Visdat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agathastellatasya/TugasBesar1_Visdat/issues"
+  },
+  "homepage": "https://github.com/agathastellatasya/TugasBesar1_Visdat#readme",
+  "dependencies": {
+    "d3": "^5.9.2",
+    "http-server": "^0.11.1"
+  }
+}

