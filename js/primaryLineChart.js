@@ -1,25 +1,25 @@
 function multiSeriesLineChart(config) {
-    function setReSizeEvent(data) {
-        var resizeTimer;
-        window.removeEventListener('resize', function () {
-        });
+    // function setReSizeEvent(data) {
+    //     var resizeTimer;
+    //     window.removeEventListener('resize', function () {
+    //     });
 
-        window.addEventListener('resize', function (event) {
-            if (resizeTimer !== false) {
-                clearTimeout(resizeTimer);
-            }
-            resizeTimer = setTimeout(function () {
-                $(data.mainDiv).empty();
-                drawmultiSeriesLineChartCharts(data);
-                clearTimeout(resizeTimer);
-            }, 500);
-        });
-    }
+    //     window.addEventListener('resize', function (event) {
+    //         if (resizeTimer !== false) {
+    //             clearTimeout(resizeTimer);
+    //         }
+    //         resizeTimer = setTimeout(function () {
+    //             $(data.mainDiv).empty();
+    //             drawmultiSeriesLineChartCharts(data);
+    //             clearTimeout(resizeTimer);
+    //         }, 500);
+    //     });
+    // }
 
     drawmultiSeriesLineChartCharts(config);
-    setReSizeEvent(config);
+    // setReSizeEvent(config);
 }
-  
+
 function createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange) {
     var z = d3.scaleOrdinal()
     .range(colorRange);
@@ -51,12 +51,12 @@ function drawmultiSeriesLineChartCharts(config) {
     var mainDiv = config.mainDiv;
     var mainDivName = mainDiv.substr(1, mainDiv.length);
     var label = config.label;
-    var requireCircle = config.requireCircle || false;
+    // var requireCircle = config.requireCircle || false;
     var requireLegend = config.requireLegend;
-    var imageData = config.imageData;
+    // var imageData = config.imageData;
     // d3.select(mainDiv).append("svg").attr("width", $(mainDiv).width()).attr("height", $(mainDiv).height());
     d3.select(mainDiv).append("svg").attr("width", 840).attr("height", 400);
-    var svg = d3.select(mainDiv + " svg"),
+    var svg = d3.select(mainDiv + " svg").attr("id","svgPrimaryLineChart"),
         margin = { top: 20, right: 20, bottom: 30, left: 120 },
         // width = 700,
         // height = 350;
@@ -94,7 +94,7 @@ function drawmultiSeriesLineChartCharts(config) {
         };
     });
 
-    x.domain([2010, 2017]);
+    x.domain([config.startX, config.endX]);
     // x.domain(d3.extent(data, function (d) {
     //     return d[xAxis];
     // }));    
@@ -154,7 +154,7 @@ function drawmultiSeriesLineChartCharts(config) {
             return z(d.id);
         }).style("fill", "none").style("stroke-width", "4px");
   
-    //CBT:for wicket Circles in multiseries line chart
+    //CBT: for wicket Circles in multiseries line chart
     var circleRadius = 5;
     var keys = Object.keys(columnsInfo);
     var element = g.append("g")
