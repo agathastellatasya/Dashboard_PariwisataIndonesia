@@ -221,10 +221,16 @@ function drawmultiSeriesLineChartCharts(config) {
         .attr("stroke-opacity", function (d) {
             return 1.0;
         });
+    
+    circles.on("click", function(d) {
+        if (d.key == "indonesia" && config.type == 1) { // primary line chart
+            config.callback(d.over);
+        }
+    });
 
     circles.on("mouseover", function (d) {
         if (d.key == "indonesia" && config.type == 1) { // primary line chart
-            config.callback(d.over);
+            d3.select(this).style("cursor", "pointer");
         }
 
         var currentEl = d3.select(this);
