@@ -14,7 +14,15 @@
 		<script src="./js/primaryLineChart.js"></script>
 	</head>
 	<body>
-		<div id="chart">
+		<div class="lineChart">
+			<div class="primaryLineChartContainer">
+				<div id="primaryLineChart">
+				</div>
+			</div>
+			<div class="secondaryLineChartContainer">
+				<div id="secondaryLineChart">
+				</div>
+			</div>
 		</div>
 		<div class="filter">
 			<div class="filterYear">
@@ -88,17 +96,15 @@
 	</body>
 	<!-- <script>
 		window.addEventListener('resize', function (event) {
-			$("#chart").width(window.innerWidth * 0.9);
-			$("#chart").height(window.innerHeight);
+			$("#primaryLineChart").width(window.innerWidth * 0.9);
+			$("#primaryLineChart").height(window.innerHeight);
 		});
 	</script> -->
 	<script>
 		function fillColumnsInfo(rawLineColumn, countries) {
 			var columnsInfo = {};
 			countries.forEach(country => {
-				var newLegend = {};
-				newLegend[country] = rawLineColumn[country];
-				columnsInfo = {...columnsInfo, ...newLegend};
+				columnsInfo[country] = rawLineColumn[country];
 			});
 
 			return columnsInfo;
@@ -119,22 +125,45 @@
 			});
 		}
 
-		function fillData(years, countries) {
-			var groupChartData = [];
-			years.forEach((year, idx) => {
+		function fillData(years, countries, rawLineData) {
+			var groupLineData = [];
+			years.forEach(year => {
 				var mainObj = {
 					"over": year
 				}
 
 				countries.forEach(country => {
-					var obj = {};
-					obj[country] = rawLineData[country][year];
-					mainObj = {...mainObj, ...obj };
+					mainObj[country] = rawLineData[country][year];
 				});
 
-				groupChartData.push(mainObj);
+				groupLineData.push(mainObj);
 			});
-			return groupChartData;
+
+			return groupLineData;
+		}
+
+		function fillSecondaryData(year, country, months, rawSecondaryLineData) {
+			var groupSecondaryLineData = [];
+
+			months.forEach(month => {
+				var mainObj = {
+					"over": month
+				}
+				mainObj[country] = rawSecondaryLineData[year][month];
+				groupSecondaryLineData.push(mainObj);
+			});
+
+			return groupSecondaryLineData;
+		}
+
+		function changeYear(year) {
+			var groupSecondaryLineData = fillSecondaryData(year, country, months, rawSecondaryLineData);
+
+			$("#secondaryLineChart").empty();
+
+			multiSeriesSecondaryChartConfig.data = groupSecondaryLineData;
+			multiSeriesSecondaryChartConfig.label.xAxis = "Month" + " (" + year + ")";
+			multiSeriesSecondaryChart = new multiSeriesLineChart(multiSeriesSecondaryChartConfig);
 		}
 
 		var startYear = 2010;
@@ -301,7 +330,7 @@
 		];
 		var years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"]
 
-		var groupChartData = fillData(years, countries);
+		var groupLineData = fillData(years, countries, rawLineData);
 
 		countries.forEach(country => {
 			var objInfo = {};
@@ -309,11 +338,11 @@
 			columnsInfo = {...columnsInfo, ...objInfo };
 		});
 
-		$("#chart").empty();
+		$("#primaryLineChart").empty();
 		var multiSeriesChartConfig = {
-			mainDiv: "#chart",
+			mainDiv: "#primaryLineChart",
 			colorRange: colorRange,
-			data: groupChartData,
+			data: groupLineData,
 			columnsInfo: columnsInfo,
 			startX: startYear,
 			endX: endYear,
@@ -322,10 +351,18 @@
 			yAxis: "runs",
 			label: {
 				xAxis: "Year",
-				yAxis: "Visitors (million people)"
+				yAxis: "Visitors"
 			},
+			marginTop: 30,
+			marginBottom: 40,
+			marginLeft: 80,
+			marginRight: 20,
+			width: 700, 
+			height: 400,
 			// requireCircle: true,
-			requireLegend: true
+			requireLegend: true,
+			type: 1,
+			callback: changeYear
 		};
 		var multiSeriesChart = new multiSeriesLineChart(multiSeriesChartConfig);
 
@@ -346,13 +383,13 @@
 				}
 			}
 
-			groupChartData = fillData(years, countries); 
+			groupLineData = fillData(years, countries, rawLineData); 
 			colorRange = fillColorRange(colorMap, countries);
 			columnsInfo = fillColumnsInfo(rawLineColumn, countries);
 
-			$("#chart").empty();
+			$("#primaryLineChart").empty();
 			multiSeriesChartConfig.colorRange = colorRange;
-			multiSeriesChartConfig.data = groupChartData;
+			multiSeriesChartConfig.data = groupLineData;
 			multiSeriesChartConfig.columnsInfo = columnsInfo;
 			multiSeriesChart = new multiSeriesLineChart(multiSeriesChartConfig);
 		});
@@ -367,10 +404,10 @@
 					years.push(i);
 				} 
 
-				groupChartData = fillData(years, countries);
+				groupLineData = fillData(years, countries, rawLineData);
 
-				$("#chart").empty();
-				multiSeriesChartConfig.data = groupChartData;
+				$("#primaryLineChart").empty();
+				multiSeriesChartConfig.data = groupLineData;
 				multiSeriesChartConfig.columnsInfo = columnsInfo;
 				multiSeriesChartConfig.years = years;
 				multiSeriesChartConfig.startX = startYear;
@@ -392,10 +429,10 @@
 					years.push(i);
 				}
 
-				groupChartData = fillData(years, countries);
+				groupLineData = fillData(years, countries, rawLineData);
 
-				$("#chart").empty();
-				multiSeriesChartConfig.data = groupChartData;
+				$("#primaryLineChart").empty();
+				multiSeriesChartConfig.data = groupLineData;
 				multiSeriesChartConfig.columnsInfo = columnsInfo;
 				multiSeriesChartConfig.years = years;
 				multiSeriesChartConfig.startX = startYear;
@@ -406,6 +443,161 @@
 				$(this).val(endYear);
 			}
 		});
+		
+		// secondaryLineChart: Indonesia
+		var rawSecondaryLineData = {
+			"2010": {
+				"Jan": 493799,
+				"Feb": 523135,
+				"Mar": 594242,
+				"Apr": 555915,
+				"May": 600031,
+				"Jun": 613422,
+				"Jul": 658476,
+				"Aug": 586530,
+				"Sep": 560367,
+				"Oct": 594654,
+				"Nov": 578152,
+				"Dec": 644221
+			},
+			"2011": {
+				"Jan": 548821,
+				"Feb": 568057,
+				"Mar": 598068,
+				"Apr": 608093,
+				"May": 600191,
+				"Jun": 674402,
+				"Jul": 745451,
+				"Aug": 621084,
+				"Sep": 650071,
+				"Oct": 656006,
+				"Nov": 654948,
+				"Dec": 724539
+			},
+			"2012": {
+				"Jan": 652692,
+				"Feb": 592502,
+				"Mar": 658602,
+				"Apr": 626100,
+				"May": 650883,
+				"Jun": 695531,
+				"Jul": 701200,
+				"Aug": 634194,
+				"Sep": 683584,
+				"Oct": 688341,
+				"Nov": 693867,
+				"Dec": 766966
+			},
+			"2013": {
+				"Jan": 614328,
+				"Feb": 678415,
+				"Mar": 725316,
+				"Apr": 646117,
+				"May": 700708,
+				"Jun": 789594,
+				"Jul": 717784,
+				"Aug": 771009,
+				"Sep": 770878,
+				"Oct": 719903,
+				"Nov": 807422,
+				"Dec": 860655
+			},
+			"2014": {
+				"Jan": 753079,
+				"Feb": 702666,
+				"Mar": 765607,
+				"Apr": 726332,
+				"May": 752363,
+				"Jun": 851475,
+				"Jul": 777210,
+				"Aug": 826821,
+				"Sep": 791296,
+				"Oct": 808767,
+				"Nov": 764461,
+				"Dec": 915334
+			},
+			"2015": {
+				"Jan": 785973,
+				"Feb": 843928,
+				"Mar": 841071,
+				"Apr": 801873,
+				"May": 852388,
+				"Jun": 872385,
+				"Jul": 877584,
+				"Aug": 911704,
+				"Sep": 920128,
+				"Oct": 877798,
+				"Nov": 835408,
+				"Dec": 986519
+			},
+			"2016": {
+				"Jan": 814303,
+				"Feb": 888309,
+				"Mar": 915019,
+				"Apr": 901095,
+				"May": 915206,
+				"Jun": 857651,
+				"Jul": 1032741,
+				"Aug": 1031986,
+				"Sep": 1006653,
+				"Oct": 1040651,
+				"Nov": 1002333,
+				"Dec": 1113328
+			},
+			"2017": {
+				"Jan": 1107968,
+				"Feb": 1023388,
+				"Mar": 1059777,
+				"Apr": 1171386,
+				"May": 1148588,
+				"Jun": 1144001,
+				"Jul": 1370591,
+				"Aug": 1393243,
+				"Sep": 1250231,
+				"Oct": 1161565,
+				"Nov": 1062030,
+				"Dec": 1147031
+			}
+		}
+	
+		var columnsInfoSecondary = {
+			"indonesia": "Indonesia"
+		};
+
+		var colorRangeSecondary = ["#eb2025"];
+		
+		var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+		var year = 2010;
+		var country = "indonesia";
+		var groupSecondaryLineData = fillSecondaryData(year, country, months, rawSecondaryLineData);
+
+		$("#secondaryLineChart").empty();
+		var multiSeriesSecondaryChartConfig = {
+			mainDiv: "#secondaryLineChart",
+			colorRange: colorRangeSecondary,
+			data: groupSecondaryLineData,
+			columnsInfo: columnsInfoSecondary,
+			months: months,
+			xAxis: "over",
+			yAxis: "runs",
+			label: {
+				xAxis: "Month" + " (" + year + ")",
+				yAxis: "Visitors"
+			},
+			marginTop: 30,
+			marginBottom: 40,
+			marginLeft: 80,
+			marginRight: 20,
+			width: 550,
+			height: 400,
+			// requireCircle: true,
+			requireLegend: true,
+			type: 2
+		};
+		var multiSeriesSecondaryChart = new multiSeriesLineChart(multiSeriesSecondaryChartConfig);
+
 	</script>
 	<script type="text/javascript">
 		if (self==top) {

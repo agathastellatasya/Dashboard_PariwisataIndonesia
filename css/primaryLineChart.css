@@ -6,7 +6,17 @@ body {
     flex-direction: column;
 }
 
-#chart {
+.lineChart {
+    display: flex;
+    flex-direction: row;
+}
+
+.primaryLineChartContainer .secondaryLineChartContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#primaryLineChart #secondaryLineChart {
     display: flex;
     flex-direction: column;
 }

@@ -55,11 +55,9 @@ function drawmultiSeriesLineChartCharts(config) {
     var requireLegend = config.requireLegend;
     // var imageData = config.imageData;
     // d3.select(mainDiv).append("svg").attr("width", $(mainDiv).width()).attr("height", $(mainDiv).height());
-    d3.select(mainDiv).append("svg").attr("width", 840).attr("height", 400);
+    d3.select(mainDiv).append("svg").attr("width", config.width).attr("height", config.height);
     var svg = d3.select(mainDiv + " svg").attr("id","svgPrimaryLineChart"),
-        margin = { top: 20, right: 20, bottom: 30, left: 120 },
-        // width = 700,
-        // height = 350;
+        margin = { top: config.marginTop, right: config.marginRight, bottom: config.marginBottom, left: config.marginLeft },
         width = svg.attr("width") - margin.left - margin.right,
         height = svg.attr("height") - margin.top - margin.bottom;
     var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -67,10 +65,17 @@ function drawmultiSeriesLineChartCharts(config) {
         $("#Legend_" + mainDivName).remove();
         createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange);
     }
-    var x = d3.scaleLinear().range([0, width]),
+    var x,
         y = d3.scaleLinear().range([height, 0]),
         z = d3.scaleOrdinal()
             .range(colorRange);
+
+    if (config.type == 1) {
+        x = d3.scaleLinear().range([0, width]);
+    } else {
+        x = d3.scalePoint().range([0, width]);
+    }
+
     var line = d3.line()
         .x(function (d) {
             return x(d[xAxis]);
@@ -94,10 +99,14 @@ function drawmultiSeriesLineChartCharts(config) {
         };
     });
 
-    x.domain([config.startX, config.endX]);
+    if (config.type == 1) { // primary line chart
+        x.domain([config.startX, config.endX]);
+    } else {
+        x.domain(config.months);
+    }
     // x.domain(d3.extent(data, function (d) {
     //     return d[xAxis];
-    // }));    
+    // }));
 
     y.domain([
         d3.min(groupData, function (c) {
@@ -115,19 +124,34 @@ function drawmultiSeriesLineChartCharts(config) {
     z.domain(groupData.map(function (c) {
         return c.id;
     }));
-  
-    g.append("g")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickValues(config.years).tickFormat(d3.format("d")))
-        .append("text")
-        .attr("x", width / 2)
-        .attr("y", margin.bottom * 0.9)
-        .attr("dx", "0.32em")
-        .attr("fill", "#000")
-        .attr("font-weight", "bold")
-        .attr("text-anchor", "start")
-        .text(label.xAxis);
+    
+    if (config.type == 1) { // primary line chart
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).tickValues(config.years).tickFormat(d3.format("d")))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text(label.xAxis);
+    } else { // secondary line chart
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).tickValues(config.months))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text(label.xAxis);
+    }
 
     g.append("g")
         .attr("class", "axis axis--y")
@@ -200,8 +224,12 @@ function drawmultiSeriesLineChartCharts(config) {
         .attr("stroke-opacity", function (d) {
             return 1.0;
         });
-  
-    circles.on("mouseover", function () {
+
+    circles.on("mouseover", function (d) {
+        if (d.key == "indonesia" && config.type == 1) { // primary line chart
+            config.callback(d.over);
+        }
+
         var currentEl = d3.select(this);
         currentEl.attr("r", 7);
         var fadeInSpeed = 120;
