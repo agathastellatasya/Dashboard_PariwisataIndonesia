@@ -2,11 +2,12 @@ function multiSeriesLineChart(config) {
     drawmultiSeriesLineChartCharts(config);
 }
 
-function createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange) {
+function createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange, config) {
     var z = d3.scaleOrdinal()
         .range(colorRange);
     var mainDivName = mainDiv.substr(1, mainDiv.length);
-    $(mainDiv).after("<div id='Legend_" + mainDivName + "' class='pmd-card-body' style='margin-top:0; margin-bottom:0;'></div>");
+    $(mainDiv).after("<div id='Legend_" + mainDivName + "' class='pmd-card-body' style='display: flex; flex-direction: row; flex-wrap: wrap; width: " + 
+        config.legendWidth + "; margin-left: " + config.legendMarginLeft + ";'></div>");
     var keys = Object.keys(columnsInfo);
     keys.forEach(function (d) {
     var cloloCode = z(d);
@@ -42,7 +43,7 @@ function drawmultiSeriesLineChartCharts(config) {
     var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     if (requireLegend != null && requireLegend != undefined && requireLegend != false) {
         $("#Legend_" + mainDivName).remove();
-        createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange);
+        createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange, config);
     }
     var x,
         y = d3.scaleLinear().range([height, 0]),
