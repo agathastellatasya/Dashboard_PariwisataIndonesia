@@ -22,7 +22,7 @@ function multiSeriesLineChart(config) {
 
 function createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange) {
     var z = d3.scaleOrdinal()
-    .range(colorRange);
+        .range(colorRange);
     var mainDivName = mainDiv.substr(1, mainDiv.length);
     $(mainDiv).after("<div id='Legend_" + mainDivName + "' class='pmd-card-body' style='margin-top:0; margin-bottom:0;'></div>");
     var keys = Object.keys(columnsInfo);
@@ -101,12 +101,9 @@ function drawmultiSeriesLineChartCharts(config) {
 
     if (config.type == 1) { // primary line chart
         x.domain([config.startX, config.endX]);
-    } else {
+    } else { // secondary line chart
         x.domain(config.months);
     }
-    // x.domain(d3.extent(data, function (d) {
-    //     return d[xAxis];
-    // }));
 
     y.domain([
         d3.min(groupData, function (c) {
@@ -178,7 +175,7 @@ function drawmultiSeriesLineChartCharts(config) {
             return z(d.id);
         }).style("fill", "none").style("stroke-width", "4px");
   
-    //CBT: for wicket Circles in multiseries line chart
+    // CBT: for wicket Circles in multiseries line chart
     var circleRadius = 5;
     var keys = Object.keys(columnsInfo);
     var element = g.append("g")
@@ -260,7 +257,7 @@ function drawmultiSeriesLineChartCharts(config) {
             return "translate(" + x + "," + y + ")";
         });
       
-        //CBT:calculate tooltips text
+        //CBT: calculate tooltips text
         var tooltipData = JSON.parse(currentEl.attr("data"));
         var tooltipsText = "";
         d3.selectAll("#circletooltipText_" + mainDivName).text("");
@@ -268,7 +265,8 @@ function drawmultiSeriesLineChartCharts(config) {
         d3.selectAll("#circletooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text(label.xAxis + ":  " + tooltipData.over);
         yPos = yPos + 1;
         d3.selectAll("#circletooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text(label.yAxis + ":  " + tooltipData.runs);
-        //CBT:calculate width of the text based on characters
+        
+        //CBT: calculate width of the text based on characters
         var dims = helpers.getDimensions("circletooltipText_" + mainDivName);
         d3.selectAll("#circletooltipText_" + mainDivName + " tspan")
             .attr("x", dims.w + 4);
