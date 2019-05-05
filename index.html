@@ -20,6 +20,11 @@
 				</div>
 			</div>
 			<div class="secondaryLineChartContainer">
+				<div class="removeButtonContainer" id="buttonSecondaryChart">
+					<button onClick="hideButton()" type="button" class="btn btn-default btn-sm">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
 				<div id="secondaryLineChart">
 				</div>
 			</div>
@@ -94,12 +99,30 @@
 					</div>
 				</div>
 			</div>
-			<div class="filterSecondary">
-					<div class="filterYear">
-						<div class="filterYearLeft">
-							<label for="fromSecondary">from</label>
-							<select class="form-control" id="fromSecondary">
-								<option selected value="1">Jan</option>
+			<div class="filterSecondary" id="filterSecondaryChart">
+				<div class="filterYear">
+					<div class="filterYearLeft">
+						<label for="fromSecondary">from</label>
+						<select class="form-control" id="fromSecondary">
+							<option selected value="1">Jan</option>
+							<option value="2">Feb</option>
+							<option value="3">Mar</option>
+							<option value="4">Apr</option>
+							<option value="5">May</option>
+							<option value="6">Jun</option>
+							<option value="7">Jul</option>
+							<option value="8">Aug</option>
+							<option value="9">Sep</option>
+							<option value="10">Oct</option>
+							<option value="11">Nov</option>
+							<option value="12">Dec</option>
+						</select>
+					</div>
+
+					<div class="filterYearRight">
+						<label for="toSecondary">to</label>
+						<select class="form-control" id="toSecondary">
+								<option value="1">Jan</option>
 								<option value="2">Feb</option>
 								<option value="3">Mar</option>
 								<option value="4">Apr</option>
@@ -110,38 +133,16 @@
 								<option value="9">Sep</option>
 								<option value="10">Oct</option>
 								<option value="11">Nov</option>
-								<option value="12">Dec</option>
-							</select>
-						</div>
-	
-						<div class="filterYearRight">
-							<label for="toSecondary">to</label>
-							<select class="form-control" id="toSecondary">
-									<option value="1">Jan</option>
-									<option value="2">Feb</option>
-									<option value="3">Mar</option>
-									<option value="4">Apr</option>
-									<option value="5">May</option>
-									<option value="6">Jun</option>
-									<option value="7">Jul</option>
-									<option value="8">Aug</option>
-									<option value="9">Sep</option>
-									<option value="10">Oct</option>
-									<option value="11">Nov</option>
-									<option selected value="12">Dec</option>
-							</select>
-						</div>
+								<option selected value="12">Dec</option>
+						</select>
 					</div>
+				</div>
 			</div>		
 		</div>
 	</body>
-	<!-- <script>
-		window.addEventListener('resize', function (event) {
-			$("#primaryLineChart").width(window.innerWidth * 0.9);
-			$("#primaryLineChart").height(window.innerHeight);
-		});
-	</script> -->
 	<script>
+		var showSecondaryChart = true;
+
 		function fillColumnsInfo(rawLineColumn, countries) {
 			var columnsInfo = {};
 			countries.forEach(country => {
@@ -202,11 +203,52 @@
 			var groupSecondaryLineData = fillSecondaryData(year, country, months, rawSecondaryLineData);
 
 			$("#secondaryLineChart").empty();
-
 			multiSeriesSecondaryChartConfig.data = groupSecondaryLineData;
 			multiSeriesSecondaryChartConfig.label.xAxis = "Month" + " (" + year + ")";
+			multiSeriesSecondaryChartConfig.months = months;
 			multiSeriesSecondaryChart = new multiSeriesLineChart(multiSeriesSecondaryChartConfig);
+			showButton();
 		}
+
+		function resetSecondaryChart() {
+			months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			startMonth = 1;
+			endMonth = 12;
+
+			var options = document.getElementById('fromSecondary').options;
+			for (var i = 0; i < options.length; i++) {
+				options[i].disabled = false;
+			}
+			options[0].selected = true;
+
+			options = document.getElementById('toSecondary').options;
+			for (var i = 0; i < options.length; i++) {
+				options[i].disabled = false;
+			}
+			options[options.length - 1].selected = true;
+		}
+
+		function showButton() {
+			showSecondaryChart = true;
+			var buttonSecondary = document.getElementById('buttonSecondaryChart');
+			buttonSecondary.style.display = 'flex';
+			var filterSecondary = document.getElementById('filterSecondaryChart');
+			filterSecondary.style.display = 'flex';
+		}
+
+		function hideButton() {
+			showSecondaryChart = false;
+			var buttonSecondary = document.getElementById('buttonSecondaryChart');
+			buttonSecondary.style.display = 'none';
+			var filterSecondary = document.getElementById('filterSecondaryChart');
+			filterSecondary.style.display = 'none';
+			$("#secondaryLineChart").empty();
+			$("#Legend_secondaryLineChart").empty();
+			resetSecondaryChart();
+		}
+
+		hideButton();
 
 		var startYear = 2010;
 		var endYear = 2017;
@@ -370,9 +412,8 @@
 			"myanmar",
 			"brunei"
 		];
+		
 		var years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"]
-
-		var groupLineData = fillData(years, countries, rawLineData);
 
 		countries.forEach(country => {
 			var objInfo = {};
@@ -381,6 +422,9 @@
 		});
 
 		$("#primaryLineChart").empty();
+
+		var groupLineData = fillData(years, countries, rawLineData);
+
 		var multiSeriesChartConfig = {
 			mainDiv: "#primaryLineChart",
 			colorRange: colorRange,
@@ -400,8 +444,7 @@
 			marginLeft: 80,
 			marginRight: 20,
 			width: 700, 
-			height: 400,
-			// requireCircle: true,
+			height: 370,
 			requireLegend: true,
 			type: 1,
 			callback: changeYear
@@ -634,9 +677,25 @@
 		var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-		var groupSecondaryLineData = fillSecondaryData(year, country, months, rawSecondaryLineData);
+		var monthMap = {
+			1: "Jan",
+			2: "Feb",
+			3: "Mar",
+			4: "Apr",
+			5: "May",
+			6: "Jun",
+			7: "Jul",
+			8: "Aug",
+			9: "Sep",
+			10: "Oct",
+			11: "Nov",
+			12: "Dec"
+		}
 
 		$("#secondaryLineChart").empty();
+
+		var groupSecondaryLineData = fillSecondaryData(year, country, months, rawSecondaryLineData);
+
 		var multiSeriesSecondaryChartConfig = {
 			mainDiv: "#secondaryLineChart",
 			colorRange: colorRangeSecondary,
@@ -654,27 +713,10 @@
 			marginLeft: 80,
 			marginRight: 20,
 			width: 550,
-			height: 400,
-			// requireCircle: true,
+			height: 250,
 			requireLegend: true,
 			type: 2
 		};
-		var multiSeriesSecondaryChart = new multiSeriesLineChart(multiSeriesSecondaryChartConfig);
-
-		var monthMap = {
-			1: "Jan",
-			2: "Feb",
-			3: "Mar",
-			4: "Apr",
-			5: "May",
-			6: "Jun",
-			7: "Jul",
-			8: "Aug",
-			9: "Sep",
-			10: "Oct",
-			11: "Nov",
-			12: "Dec"
-		}
 
 		$('#fromSecondary').change(function() {
 			var from = parseInt($(this).val());
@@ -701,6 +743,7 @@
 						options[i].disabled = false;
 					}
 				}
+
 			// } else {
 			// 	alert('Start month must be <= end month !');
 			// 	$(this).val(startMonth);

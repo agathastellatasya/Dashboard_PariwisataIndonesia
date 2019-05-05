@@ -16,6 +16,12 @@ body {
     flex-direction: column;
 }
 
+.removeButtonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 #primaryLineChart #secondaryLineChart {
     display: flex;
     flex-direction: column;

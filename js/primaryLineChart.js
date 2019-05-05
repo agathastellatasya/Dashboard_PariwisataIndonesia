@@ -1,23 +1,5 @@
 function multiSeriesLineChart(config) {
-    // function setReSizeEvent(data) {
-    //     var resizeTimer;
-    //     window.removeEventListener('resize', function () {
-    //     });
-
-    //     window.addEventListener('resize', function (event) {
-    //         if (resizeTimer !== false) {
-    //             clearTimeout(resizeTimer);
-    //         }
-    //         resizeTimer = setTimeout(function () {
-    //             $(data.mainDiv).empty();
-    //             drawmultiSeriesLineChartCharts(data);
-    //             clearTimeout(resizeTimer);
-    //         }, 500);
-    //     });
-    // }
-
     drawmultiSeriesLineChartCharts(config);
-    // setReSizeEvent(config);
 }
 
 function createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange) {
@@ -33,7 +15,6 @@ function createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange) {
                 <span style='padding-top: 0;font-family:Source Sans Pro, sans-serif;font-size: 13px;display: inline;'>" + columnsInfo[d] + " </span>\
             </span>");
     });
-
 }
   
 function drawmultiSeriesLineChartCharts(config) {
@@ -42,7 +23,7 @@ function drawmultiSeriesLineChartCharts(config) {
     keys.forEach(function (d) {
         tempObj[d] = 0;
     });
-    // config.data.splice(0, 0, tempObj);
+
     var data = config.data;
     var columnsInfo = config.columnsInfo;
     var xAxis = config.xAxis;
@@ -51,10 +32,8 @@ function drawmultiSeriesLineChartCharts(config) {
     var mainDiv = config.mainDiv;
     var mainDivName = mainDiv.substr(1, mainDiv.length);
     var label = config.label;
-    // var requireCircle = config.requireCircle || false;
     var requireLegend = config.requireLegend;
-    // var imageData = config.imageData;
-    // d3.select(mainDiv).append("svg").attr("width", $(mainDiv).width()).attr("height", $(mainDiv).height());
+    
     d3.select(mainDiv).append("svg").attr("width", config.width).attr("height", config.height);
     var svg = d3.select(mainDiv + " svg").attr("id","svgPrimaryLineChart"),
         margin = { top: config.marginTop, right: config.marginRight, bottom: config.marginBottom, left: config.marginLeft },
@@ -154,9 +133,7 @@ function drawmultiSeriesLineChartCharts(config) {
         .attr("class", "axis axis--y")
         .call(d3.axisLeft(y))
         .append("text")
-        // .attr("transform", "rotate(-90)")
         .attr("y", -10)
-        // .attr("dy", "0.5em")
         .attr("fill", "#000")
         .attr("font-weight", "bold")
         .text(label.yAxis);
