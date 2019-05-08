@@ -1,147 +1,195 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> -->
 		<title>
 			Dashboard
 		</title>
-		<link  rel="stylesheet" type="text/css" href="./css/primaryLineChart.css" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="./js/primaryLineChart.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	</head>
-	<body>
-		<div class="lineChart">
-			<div class="primaryLineChartContainer">
-				<div id="primaryLineChart">
+	<body class="body">
+		<div class="nav">
+			<a href="page1.html" style="text-decoration: none; margin-top: 56px; display: flex; flex-direction: column">
+				<div class="menu-container">
+				    <div class="img-container">
+				    	<img src="address.png">
+				    </div>
+				    <p class="menu-text">10 Bali Baru</p>
 				</div>
-			</div>
-			<div class="secondaryLineChartContainer">
-				<div class="removeButtonContainer" id="buttonSecondaryChart">
-					<button onClick="hideButton()" type="button" class="btn btn-default btn-sm">
-						<span class="glyphicon glyphicon-remove"></span>
-					</button>
+			</a>
+			<a href="index.html" style="text-decoration: none; display: flex; flex-direction: column">
+				<div class="menu-container" id="active">
+					<div class="img-container">
+				    	<img src="dashboard.png">
+				    </div>
+				    <p class="menu-text">Dashboard</p>
 				</div>
-				<div id="secondaryLineChart">
-				</div>
-			</div>
+			</a>
 		</div>
-		<div class="filter">
-			<div class="filterPrimary">
-				<div class="filterYear">
-					<div class="filterYearLeft">
-						<label for="from">from</label>
-						<select class="form-control" id="from">
-							<option selected value="2010">2010</option>
-							<option value="2011">2011</option>
-							<option value="2012">2012</option>
-							<option value="2013">2013</option>
-							<option value="2014">2014</option>
-							<option value="2015">2015</option>
-							<option value="2016">2016</option>
-							<option disabled value="2017">2017</option>
-						</select>
+		<div class="root-container">
+			<!-- <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #1da1f2">
+				<a class="navbar-brand" href="#">Dashboard Perkembangan Pariwisata</a>
+			</nav> -->
+			<h2 style="margin: 1%;">Perkembangan Pariwisata</h1>
+			<div class="middleContainer">
+				<div class="firstContainer">
+					<div class="lineChart">
+						<div class="primaryLineChartContainer">
+							<h6>Jumlah Kunjungan Wisatawan Mancanegara dengan Destinasi Negara-Negara ASEAN</h6>
+							<div id="primaryLineChart">
+							</div>
+						</div>
 					</div>
+					<div class="filterContainer">
+						<div class="filterPrimary">
+							<div class="filterYear">
+								<div class="filterYearLeft">
+									<label for="from">from:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+									<select class="form-control" id="from">
+										<option selected value="2010">2010</option>
+										<option value="2011">2011</option>
+										<option value="2012">2012</option>
+										<option value="2013">2013</option>
+										<option value="2014">2014</option>
+										<option value="2015">2015</option>
+										<option value="2016">2016</option>
+										<option disabled value="2017">2017</option>
+									</select>
+								</div>
 
-					<div class="filterYearRight">
-						<label for="to">to</label>
-						<select class="form-control" id="to">
-							<option disabled value="2010">2010</option>
-							<option value="2011">2011</option>
-							<option value="2012">2012</option>
-							<option value="2013">2013</option>
-							<option value="2014">2014</option>
-							<option value="2015">2015</option>
-							<option value="2016">2016</option>
-							<option selected value="2017">2017</option>
-						</select>
+								<div class="filterYearRight">
+									<label for="to">to:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+									<select class="form-control" id="to">
+										<option disabled value="2010">2010</option>
+										<option value="2011">2011</option>
+										<option value="2012">2012</option>
+										<option value="2013">2013</option>
+										<option value="2014">2014</option>
+										<option value="2015">2015</option>
+										<option value="2016">2016</option>
+										<option selected value="2017">2017</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="filterCountry">
+								<div class="filterCountryLeft">
+									<label for="">Country</label>
+									<div class="checkbox">
+										<label><input type="checkbox" value="thailand" checked>&nbsp;&nbsp;Thailand</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="malaysia" checked>&nbsp;&nbsp;Malaysia</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="singapore" checked>&nbsp;&nbsp;Singapur</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="indonesia" checked>&nbsp;&nbsp;Indonesia</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="vietnam" checked>&nbsp;&nbsp;Vietnam</label>
+									</div>
+								</div>
+
+								<div class="filterCountryRight">
+									<label for="" style="color: white;">Country</label>
+									<div class="checkbox">
+										<label><input type="checkbox" value="phillipine" checked>&nbsp;&nbsp;Filipina</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="cambodia" checked>&nbsp;&nbsp;Kamboja</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="laos" checked>&nbsp;&nbsp;Laos</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="myanmar" checked>&nbsp;&nbsp;Myanmar</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" value="brunei" checked>&nbsp;&nbsp;Brunei Darussalam</label>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class="secondContainer">
+					<div class="titleContainer">
+						<div class="fullContainer">
+							<h6 id="titleSecondaryChart">Jumlah Kunjungan Wisatawan Mancanegara di Indonesia per Tahun</h6>
+							<div class="secondaryLineChartContainer">
+								<div id="secondaryLineChart">
+								</div>
+								<div id="facts">
+									Facts
+								</div>
+							</div>
+							<div class="filterSecondary" id="filterSecondaryChart">
+								<div class="filterYear">
+									<div class="filterYearLeft">
+										<label for="fromSecondary">from:&nbsp;&nbsp;&nbsp;</label>
+										<select class="form-control" id="fromSecondary">
+											<option selected value="1">Jan</option>
+											<option value="2">Feb</option>
+											<option value="3">Mar</option>
+											<option value="4">Apr</option>
+											<option value="5">Mei</option>
+											<option value="6">Jun</option>
+											<option value="7">Jul</option>
+											<option value="8">Aug</option>
+											<option value="9">Sep</option>
+											<option value="10">Okt</option>
+											<option value="11">Nov</option>
+											<option disabled value="12">Des</option>
+										</select>
+									</div>
 
-				<div class="filterCountry">
-					<div class="filterCountryLeft">
-						<div class="checkbox">
-							<label><input type="checkbox" value="thailand" checked>Thailand</label>
+									<div class="filterYearRight">
+										<label for="toSecondary">to:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+										<select class="form-control" id="toSecondary">
+												<option disabled value="1">Jan</option>
+												<option value="2">Feb</option>
+												<option value="3">Mar</option>
+												<option value="4">Apr</option>
+												<option value="5">Mei</option>
+												<option value="6">Jun</option>
+												<option value="7">Jul</option>
+												<option value="8">Aug</option>
+												<option value="9">Sep</option>
+												<option value="10">Okt</option>
+												<option value="11">Nov</option>
+												<option selected value="12">Des</option>
+										</select>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="malaysia" checked>Malaysia</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="singapore" checked>Singapore</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="indonesia" checked>Indonesia</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="vietnam" checked>Vietnam</label>
+						<div class="removeButtonContainer" id="buttonSecondaryChart">
+							<button onClick="hideButton()" type="button" class="btn btn-default btn-sm">
+								<img src="./icon.png" style="width: 20px; height: auto">
+							</button>
 						</div>
 					</div>
-
-					<div class="filterCountryRight">
-						<div class="checkbox">
-							<label><input type="checkbox" value="phillipine" checked>Phillipines</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="cambodia" checked>Cambodia</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="laos" checked>Laos</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="myanmar" checked>Myanmar</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="brunei" checked>Brunei Darussalam</label>
-						</div>
+					<div class="bubbleContainer">
+						<center><h6>Jumlah Peningkatan Devisa Indonesia pada Sektor Pariwisata<br>(dari Tahun Sebelumnya)</h6></center>
+						<div id="bubble-chart"></div>
 					</div>
 				</div>
 			</div>
-			<div class="filterSecondary" id="filterSecondaryChart">
-				<div class="filterYear">
-					<div class="filterYearLeft">
-						<label for="fromSecondary">from</label>
-						<select class="form-control" id="fromSecondary">
-							<option selected value="1">Jan</option>
-							<option value="2">Feb</option>
-							<option value="3">Mar</option>
-							<option value="4">Apr</option>
-							<option value="5">May</option>
-							<option value="6">Jun</option>
-							<option value="7">Jul</option>
-							<option value="8">Aug</option>
-							<option value="9">Sep</option>
-							<option value="10">Oct</option>
-							<option value="11">Nov</option>
-							<option disabled value="12">Dec</option>
-						</select>
-					</div>
-
-					<div class="filterYearRight">
-						<label for="toSecondary">to</label>
-						<select class="form-control" id="toSecondary">
-								<option disabled value="1">Jan</option>
-								<option value="2">Feb</option>
-								<option value="3">Mar</option>
-								<option value="4">Apr</option>
-								<option value="5">May</option>
-								<option value="6">Jun</option>
-								<option value="7">Jul</option>
-								<option value="8">Aug</option>
-								<option value="9">Sep</option>
-								<option value="10">Oct</option>
-								<option value="11">Nov</option>
-								<option selected value="12">Dec</option>
-						</select>
-					</div>
-				</div>
-			</div>		
 		</div>
 	</body>
 	<script>
-		var showSecondaryChart = true;
+		var showSecondaryChart = true;	
 
 		function fillColumnsInfo(rawLineColumn, countries) {
 			var columnsInfo = {};
@@ -204,15 +252,15 @@
 
 			$("#secondaryLineChart").empty();
 			multiSeriesSecondaryChartConfig.data = groupSecondaryLineData;
-			multiSeriesSecondaryChartConfig.label.xAxis = "Month" + " (" + year + ")";
+			multiSeriesSecondaryChartConfig.label.xAxis = "Bulan" + " (" + year + ")";
 			multiSeriesSecondaryChartConfig.months = months;
 			multiSeriesSecondaryChart = new multiSeriesLineChart(multiSeriesSecondaryChartConfig);
 			showButton();
 		}
 
 		function resetSecondaryChart() {
-			months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+				"Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
 			startMonth = 1;
 			endMonth = 12;
 
@@ -234,20 +282,28 @@
 		function showButton() {
 			showSecondaryChart = true;
 			var buttonSecondary = document.getElementById('buttonSecondaryChart');
-			buttonSecondary.style.display = 'flex';
+			buttonSecondary.style.visibility = "visible";
 			var filterSecondary = document.getElementById('filterSecondaryChart');
-			filterSecondary.style.display = 'flex';
+			filterSecondary.style.visibility = "visible";
+			var facts = document.getElementById('facts');
+			facts.style.visibility = "hidden";
+			var title = document.getElementById('titleSecondaryChart');
+			title.style.visibility = "visible";
 		}
 
 		function hideButton() {
 			showSecondaryChart = false;
 			var buttonSecondary = document.getElementById('buttonSecondaryChart');
-			buttonSecondary.style.display = 'none';
+			buttonSecondary.style.visibility = "hidden";
 			var filterSecondary = document.getElementById('filterSecondaryChart');
-			filterSecondary.style.display = 'none';
+			filterSecondary.style.visibility = "hidden";
 			$("#secondaryLineChart").empty();
 			$("#Legend_secondaryLineChart").empty();
 			resetSecondaryChart();
+			var facts = document.getElementById('facts');
+			facts.style.visibility = "visible";
+			var title = document.getElementById('titleSecondaryChart');
+			title.style.visibility = "hidden";
 		}
 
 		hideButton();
@@ -361,11 +417,11 @@
 		var rawLineColumn = {
 			"thailand": "Thailand",
 			"malaysia": "Malaysia",
-			"singapore": "Singapore",
+			"singapore": "Singapur",
 			"indonesia": "Indonesia",
 			"vietnam": "Vietnam",
-			"phillipine": "Phillipines",
-			"cambodia": "Cambodia",
+			"phillipine": "Filipina",
+			"cambodia": "Kamboja",
 			"laos": "Laos",
 			"myanmar": "Myanmar",
 			"brunei": "Brunei Darussalam"
@@ -438,8 +494,8 @@
 			xAxis: "over",
 			yAxis: "runs",
 			label: {
-				xAxis: "Year",
-				yAxis: "Visitors"
+				xAxis: "Tahun",
+				yAxis: "Pengunjung"
 			},
 			marginTop: 30,
 			marginBottom: 40,
@@ -558,112 +614,112 @@
 				"Feb": 523135,
 				"Mar": 594242,
 				"Apr": 555915,
-				"May": 600031,
+				"Mei": 600031,
 				"Jun": 613422,
 				"Jul": 658476,
 				"Aug": 586530,
 				"Sep": 560367,
-				"Oct": 594654,
+				"Okt": 594654,
 				"Nov": 578152,
-				"Dec": 644221
+				"Des": 644221
 			},
 			"2011": {
 				"Jan": 548821,
 				"Feb": 568057,
 				"Mar": 598068,
 				"Apr": 608093,
-				"May": 600191,
+				"Mei": 600191,
 				"Jun": 674402,
 				"Jul": 745451,
 				"Aug": 621084,
 				"Sep": 650071,
-				"Oct": 656006,
+				"Okt": 656006,
 				"Nov": 654948,
-				"Dec": 724539
+				"Des": 724539
 			},
 			"2012": {
 				"Jan": 652692,
 				"Feb": 592502,
 				"Mar": 658602,
 				"Apr": 626100,
-				"May": 650883,
+				"Mei": 650883,
 				"Jun": 695531,
 				"Jul": 701200,
 				"Aug": 634194,
 				"Sep": 683584,
-				"Oct": 688341,
+				"Okt": 688341,
 				"Nov": 693867,
-				"Dec": 766966
+				"Des": 766966
 			},
 			"2013": {
 				"Jan": 614328,
 				"Feb": 678415,
 				"Mar": 725316,
 				"Apr": 646117,
-				"May": 700708,
+				"Mei": 700708,
 				"Jun": 789594,
 				"Jul": 717784,
 				"Aug": 771009,
 				"Sep": 770878,
-				"Oct": 719903,
+				"Okt": 719903,
 				"Nov": 807422,
-				"Dec": 860655
+				"Des": 860655
 			},
 			"2014": {
 				"Jan": 753079,
 				"Feb": 702666,
 				"Mar": 765607,
 				"Apr": 726332,
-				"May": 752363,
+				"Mei": 752363,
 				"Jun": 851475,
 				"Jul": 777210,
 				"Aug": 826821,
 				"Sep": 791296,
-				"Oct": 808767,
+				"Okt": 808767,
 				"Nov": 764461,
-				"Dec": 915334
+				"Des": 915334
 			},
 			"2015": {
 				"Jan": 785973,
 				"Feb": 843928,
 				"Mar": 841071,
 				"Apr": 801873,
-				"May": 852388,
+				"Mei": 852388,
 				"Jun": 872385,
 				"Jul": 877584,
 				"Aug": 911704,
 				"Sep": 920128,
-				"Oct": 877798,
+				"Okt": 877798,
 				"Nov": 835408,
-				"Dec": 986519
+				"Des": 986519
 			},
 			"2016": {
 				"Jan": 814303,
 				"Feb": 888309,
 				"Mar": 915019,
 				"Apr": 901095,
-				"May": 915206,
+				"Mei": 915206,
 				"Jun": 857651,
 				"Jul": 1032741,
 				"Aug": 1031986,
 				"Sep": 1006653,
-				"Oct": 1040651,
+				"Okt": 1040651,
 				"Nov": 1002333,
-				"Dec": 1113328
+				"Des": 1113328
 			},
 			"2017": {
 				"Jan": 1107968,
 				"Feb": 1023388,
 				"Mar": 1059777,
 				"Apr": 1171386,
-				"May": 1148588,
+				"Mei": 1148588,
 				"Jun": 1144001,
 				"Jul": 1370591,
 				"Aug": 1393243,
 				"Sep": 1250231,
-				"Oct": 1161565,
+				"Okt": 1161565,
 				"Nov": 1062030,
-				"Dec": 1147031
+				"Des": 1147031
 			}
 		}
 	
@@ -678,22 +734,22 @@
 		var startMonth = 1;
 		var endMonth = 12;
 
-		var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		var months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+			"Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
 
 		var monthMap = {
 			1: "Jan",
 			2: "Feb",
 			3: "Mar",
 			4: "Apr",
-			5: "May",
+			5: "Mei",
 			6: "Jun",
 			7: "Jul",
 			8: "Aug",
 			9: "Sep",
-			10: "Oct",
+			10: "Okt",
 			11: "Nov",
-			12: "Dec"
+			12: "Des"
 		}
 
 		$("#secondaryLineChart").empty();
@@ -709,8 +765,8 @@
 			xAxis: "over",
 			yAxis: "runs",
 			label: {
-				xAxis: "Month" + " (" + year + ")",
-				yAxis: "Visitors"
+				xAxis: "Bulan" + " (" + year + ")",
+				yAxis: "Pengunjung"
 			},
 			marginTop: 30,
 			marginBottom: 40,
@@ -718,7 +774,7 @@
 			marginRight: 20,
 			width: 550,
 			height: 250,
-			requireLegend: true,
+			requireLegend: false,
 			type: 2,
 			legendWidth: '100px',
 			legendMarginLeft: '35px'
@@ -786,5 +842,72 @@
 			// 	$(this).val(endMonth);
 			// }
 		});
+
+		// set the dimensions and margins of the graph
+		var margin = {top: 25, right: 20, bottom: 30, left: 120},
+		  width = 550 - margin.left - margin.right,
+		  height = 250 - margin.top - margin.bottom;
+
+		// append the svg object to the body of the page
+		var svg = d3.select("#bubble-chart")
+		.append("svg")
+		  .attr("width", width + margin.left + margin.right)
+		  .attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		  .attr("transform",
+		        "translate(" + margin.left + "," + margin.top + ")");
+
+		//Read the data
+		d3.csv("https://raw.githubusercontent.com/vereniliana/test/master/devisa.csv", function(data) {
+
+		var incomeYears = [2012, 2013, 2014, 2015, 2016, 2017]
+
+		// Add X axis
+		var x = d3.scaleLinear()
+		.domain([2011, 2018])
+		.range([ 0, width ]);
+		svg.append("g")
+		.attr("transform", "translate(0," + height + ")")
+		.call(d3.axisBottom(x).tickValues(incomeYears).tickFormat(d3.format("d")))
+		.append("text")
+		        .attr("x", width / 2)
+		        .attr("y", margin.bottom * 1)
+		        .attr("dx", "0.32em")
+		        .attr("fill", "#000")
+		        .attr("font-weight", "bold")
+		        .attr("text-anchor", "start")
+		        .text("Tahun");
+
+		// Add Y axis
+		var y = d3.scaleLinear()
+		.domain([0.4, 1.6])
+		.range([ height, 0]);
+		svg.append("g")
+		.call(d3.axisLeft(y))
+		.append("text")
+        .attr("y", -10)
+        .attr("fill", "#000")
+        .attr("font-weight", "bold")
+        .text("Peningkatan (miliar USD)");
+
+		// Add a scale for bubble size
+		var z = d3.scaleLinear()
+		.domain([0, 5])
+		.range([ 0, 35]);
+
+		// Add dots
+		svg.append('g')
+		.selectAll("dot")
+		.data(data)
+		.enter()
+		.append("circle")
+		  .attr("cx", function (d) { return x(d.tahun); } )
+		  .attr("cy", function (d) { return y(d.selisih); } )
+		  .attr("r", function (d) { return z(d.rank_value); } )
+		  .style("fill", "#eb2025")
+		  // .style("opacity", "0.7")
+		  .attr("stroke", "black")
+		  .attr("stroke-width", "2px")
+		})
 	</script>
 </html>

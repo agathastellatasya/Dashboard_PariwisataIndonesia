@@ -1,0 +1,195 @@
+.body {
+  margin: 0;
+  /*background-color: #cedebb;*/
+   display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  flex-direction: row;
+}
+
+.root-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+
+.firstContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.secondContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    /*padding-left: 20px;*/
+    align-items: center;
+}
+
+.middleContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav {
+  list-style-type: none;
+  /*margin-top: 5%;*/
+  width: 11%;
+  background-color: #1da1f2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /*overflow: auto;*/
+}
+
+.island-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1%;
+}
+
+.menu-container {
+  padding-bottom: 5px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 50px;
+}
+
+img {
+  /*margin: 10px 10px 0px 10px;*/
+  /*border-radius: 50%;*/
+  width: 30px;
+  height: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#active {
+  background-color: white;
+}
+
+.menu-text {
+  /*text-align: center;*/
+  /*margin-left: 5px;*/
+  margin-top: 3px; 
+  margin-bottom: 20px;
+  color: black;
+  display: flex;
+  flex-direction: column; 
+}
+
+.lineChart {
+    display: flex;
+    flex-direction: row;
+}
+
+.primaryLineChartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.secondaryLineChartContainer {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+}
+
+.removeButtonContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.fullContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#primaryLineChart #secondaryLineChart {
+    display: flex;
+    flex-direction: column;
+}
+
+#facts {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%; 
+}
+
+.bubbleContainer {
+  display: flex;
+  flex-direction: column; 
+  margin-top: 15px;
+  align-items: center;
+}
+
+.filterSecondary {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.filterPrimary {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.filterCountry {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+}
+
+.filterCountryLeft {
+    display: flex;
+    flex-direction: column;
+}
+
+.filterCountryRight {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.filterYear {
+    display: flex;
+    flex-direction: row;
+}
+
+.filterYearLeft {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.filterYearRight {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    align-items: center;
+}
