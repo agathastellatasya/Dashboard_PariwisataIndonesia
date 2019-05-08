@@ -13,7 +13,7 @@ function createmultiSeriesLineChartLegend(mainDiv, columnsInfo, colorRange, conf
     var cloloCode = z(d);
     $("#Legend_" + mainDivName).append("<span class='team-graph team1' style='display: inline-block; margin-right:10px;'>\
                 <span style='background:" + cloloCode + ";width: 10px;height: 10px;display: inline-block;vertical-align: middle;'>&nbsp;</span>\
-                <span style='padding-top: 0;font-family:Source Sans Pro, sans-serif;font-size: 13px;display: inline;'>" + columnsInfo[d] + " </span>\
+                <span style='padding-top: 0;font-family: 'Roboto', sans-serif;font-size: 13px;display: inline;'>" + columnsInfo[d] + " </span>\
             </span>");
     });
 }
@@ -302,7 +302,7 @@ function drawmultiSeriesLineChartCharts(config) {
     });
   
     var circleTooltipg = g.append("g")
-        .attr("font-family", "sans-serif")
+        .attr("font-family", "'Roboto', sans-serif")
         .attr("font-size", 10)
         .attr("text-anchor", "end")
         .attr("id", "circletooltip_" + mainDivName)
@@ -329,7 +329,7 @@ function drawmultiSeriesLineChartCharts(config) {
             return 10;
         })
         .style("font-family", function (d) {
-            return "arial";
+            return "'Roboto', sans-serif";
         })
         .text(function (d, i) {
             return "";

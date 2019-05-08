@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/style.css">
+    <!-- <link  rel="stylesheet" type="text/css" href="./css/primaryLineChart.css" /> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="./js/primaryLineChart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+  <script src="https://www.amcharts.com/lib/4/geodata/indonesiaHigh.js"></script>
+  <link  rel="stylesheet" type="text/css" href="./css/maps.css" />
+</head>
+
+  <body class="body">
+    <div class="nav">
+      <a href="page1.html" style="text-decoration: none; margin-top: 56px;">
+        <div class="menu-container" id="active">
+            <img src="address.png" class="center">
+            <p class="menu-text">10 Bali Baru</p>
+        </div>
+      </a>
+      <a href="index.html" style="text-decoration: none;">
+        <div class="menu-container">
+            <img src="dashboard.png" class="center">
+            <p class="menu-text">Dashboard</p>
+        </div>
+      </a>
+    </div>
+    <div class="page1-container">
+      <!-- <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #1da1f2">
+        <a class="navbar-brand" href="#">Dashboard Perkembangan Pariwisata</a>
+      </nav> -->
+      <center>
+        <h1>
+          Persebaran 10 Bali Baru di Indonesia
+        </h1>
+      </center>  
+      <div class="island-container">
+        <div id="chartdiv"></div>
+        <div id="info"></div>
+      </div>
+    </div>
+    <script src="./js/maps.js"></script>
+</body>
+</html>
